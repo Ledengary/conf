@@ -1,0 +1,4 @@
+export CUDA_HOME=/cm/shared/apps/cuda12.1/toolkit/12.1.1
+export PATH=/cm/shared/apps/cuda12.1/toolkit/12.1.1/bin:$PATH
+export LD_LIBRARY_PATH=/cm/shared/apps/cuda12.1/toolkit/12.1.1/lib64:$LD_LIBRARY_PATH
+hash -r  # Refresh shell command cache

@@ -1,0 +1,154 @@
+Here are the different ways you can run the contrastive learning script from the command line:
+
+## Basic Usage
+
+To run the complete contrastive learning pipeline with default settings:
+
+```bash
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --postfix postfix_string \
+  --shots_dir_path /path/to/few_shot_examples \
+  --nshots 10 \
+  --output_dim 4096 \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path
+```
+Sample:
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path "../data/GSM8K/Meta-Llama-3.1-8B-Instruct-quantized.w8a8/subset" \
+  --postfix "_wconf_wid_sub" \
+  --shots_dir_path "../data/GSM8K/" \
+  --nshots 10 \
+  --output_dim 4096 \
+  --contrastive_epochs 1 \
+  --classifier_epochs 1 \
+  --dataset_name "GSM8K" \
+  --final_hidden_states_path "../data/GSM8K/Meta-Llama-3.1-8B-Instruct-quantized.w8a8/final_hidden_states" \
+  --llm_id "neuralmagic/Meta-Llama-3.1-8B-Instruct-quantized.w8a8" \
+  --output_dir "../storage/trained_models" \
+  --freeze_embedded_contrastive \
+  --freeze_classifier_contrastive \
+  --use_model_for_classifier \
+  -- criter "infonce"
+
+## Training Options
+
+Customize the training process:
+
+```bash
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --contrastive_epochs 15 \
+  --classifier_epochs 20 \
+  --batch_size 32 \
+  --learning_rate 5e-5 \
+  --seed 42
+```
+
+## Prediction Goal
+
+Choose between correctness prediction and confidence prediction:
+
+```bash
+# For correctness prediction (default)
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --goal true
+
+# For confidence prediction
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --goal conf
+```
+
+## Using Pre-trained Contrastive Model
+
+Use a pre-trained contrastive model instead of training a new one:
+
+```bash
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --contrastive_model_path /path/to/pretrained_model.pt
+```
+
+## Running Combined Model Only
+
+Run only the combined model experiment using a pre-trained contrastive model:
+
+```bash
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --contrastive_model_path /path/to/pretrained_model.pt \
+  --run_combined_model_only
+```
+
+## Freezing vs Fine-tuning Contrastive Model
+
+Control whether the contrastive model is frozen or fine-tuned in the combined model:
+
+```bash
+# To freeze the contrastive model (weights won't be updated)
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path \
+  --freeze_contrastive
+
+# To fine-tune the contrastive model (default behavior)
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name dataset_name \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id model_name_or_path
+```
+
+## Complete Example With All Options
+
+Here's a complete example using all customization options:
+
+```bash
+python last-hidden-state-indie-contrastive-train.py \
+  --wconf_dir_path /path/to/wconf_dataset \
+  --shots_dir_path /path/to/few_shot_examples \
+  --dataset_name squad \
+  --final_hidden_states_path /path/to/hidden_states \
+  --llm_id google/flan-t5-large \
+  --goal true \
+  --nshots 5 \
+  --contrastive_epochs 15 \
+  --classifier_epochs 20 \
+  --output_dir ./output/contrastive_experiments \
+  --seed 42 \
+  --visible_cudas 0,1 \
+  --batch_size 32 \
+  --learning_rate 1e-4 \
+  --contrastive_model_path /path/to/pretrained_model.pt \
+  --freeze_contrastive
+```
+
+These command-line options provide flexibility to run the experiment in various configurations, from training a new contrastive model from scratch to using and fine-tuning a pre-trained model.

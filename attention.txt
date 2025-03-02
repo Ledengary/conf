@@ -1,0 +1,58 @@
+/home/rkhanm1/anaconda3/envs/vllm_env/bin/python: can't open file '/home/rkhanm1/confidence/extract_attention.py': [Errno 2] No such file or directory
+/home/rkhanm1/anaconda3/envs/vllm_env/bin/python: can't open file '/home/rkhanm1/confidence/extract_attention.py': [Errno 2] No such file or directory
+/home/rkhanm1/anaconda3/envs/vllm_env/bin/python: can't open file '/home/rkhanm1/confidence/extract_attention.py': [Errno 2] No such file or directory
+/home/rkhanm1/anaconda3/envs/vllm_env/bin/python: can't open file '/home/rkhanm1/confidence/extract_attention.py': [Errno 2] No such file or directory
+E0220 19:13:47.386000 171536 site-packages/torch/distributed/elastic/multiprocessing/api.py:869] failed (exitcode: 2) local_rank: 0 (pid: 171671) of binary: /home/rkhanm1/anaconda3/envs/vllm_env/bin/python
+Traceback (most recent call last):
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/bin/accelerate", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/accelerate/commands/accelerate_cli.py", line 48, in main
+    args.func(args)
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/accelerate/commands/launch.py", line 1190, in launch_command
+    multi_gpu_launcher(args)
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/accelerate/commands/launch.py", line 808, in multi_gpu_launcher
+    distrib_run.run(args)
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/torch/distributed/run.py", line 910, in run
+    elastic_launch(
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 138, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/rkhanm1/anaconda3/envs/vllm_env/lib/python3.12/site-packages/torch/distributed/launcher/api.py", line 269, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+extract_attention.py FAILED
+------------------------------------------------------------
+Failures:
+[1]:
+  time      : 2025-02-20_19:13:47
+  host      : rhlxradonchpc1.net.hfh.edu
+  rank      : 1 (local_rank: 1)
+  exitcode  : 2 (pid: 171672)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[2]:
+  time      : 2025-02-20_19:13:47
+  host      : rhlxradonchpc1.net.hfh.edu
+  rank      : 2 (local_rank: 2)
+  exitcode  : 2 (pid: 171673)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+[3]:
+  time      : 2025-02-20_19:13:47
+  host      : rhlxradonchpc1.net.hfh.edu
+  rank      : 3 (local_rank: 3)
+  exitcode  : 2 (pid: 171674)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2025-02-20_19:13:47
+  host      : rhlxradonchpc1.net.hfh.edu
+  rank      : 0 (local_rank: 0)
+  exitcode  : 2 (pid: 171671)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================
